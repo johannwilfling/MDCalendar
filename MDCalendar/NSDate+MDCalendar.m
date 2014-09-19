@@ -47,10 +47,8 @@
     static NSDateFormatter *dateFormatter = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        dateFormatter = [[NSDateFormatter alloc] init];
-        
-        NSString *localization = [NSBundle mainBundle].preferredLocalizations.firstObject;
-        dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:localization];
+        dateFormatter = [[NSDateFormatter alloc] init];        
+        dateFormatter.locale = [NSLocale currentLocale];
     });
     
     return dateFormatter;
