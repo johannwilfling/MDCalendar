@@ -392,7 +392,6 @@ static CGFloat const kMDCalendarHeaderViewWeekdayBottomMargin  = 5.f;
 @end
 
 @interface MDCalendar () <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource>
-@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UICollectionViewFlowLayout *layout;
 
 @property (nonatomic, assign) NSDate *currentDate;
@@ -608,7 +607,7 @@ static CGFloat const kMDCalendarViewSectionSpacing = 10.f;
     
     // Disable non-selectable cells
     if (![self collectionView:collectionView shouldSelectItemAtIndexPath:indexPath]) {
-        cell.textColor = [date isEqualToDateSansTime:[self currentDate]] ? cell.textColor : [cell.textColor colorWithAlphaComponent:0.2];
+        cell.textColor = [date isEqualToDateSansTime:[self currentDate]] ? cell.textColor : [cell.textColor colorWithAlphaComponent:0.5];
         cell.userInteractionEnabled = NO;
         
         // If the cell is outside the selectable range, and it is not today, tell the user
@@ -654,7 +653,8 @@ static CGFloat const kMDCalendarViewSectionSpacing = 10.f;
         headerView.weekdayTextColor = _weekdayTextColor;
         
         NSDate *date = [self dateForFirstDayOfSection:indexPath.section];
-        headerView.shouldShowYear = [date year] != [_startDate year];
+//        headerView.shouldShowYear = [date year] != [_startDate year];
+        headerView.shouldShowYear = YES;
         headerView.firstDayOfMonth = date;
         
         view = headerView;
@@ -681,6 +681,10 @@ static CGFloat const kMDCalendarViewSectionSpacing = 10.f;
     NSDate *date = [self dateForIndexPath:indexPath];
     
     if ([date isBeforeDate:_startDate] && !_canSelectDaysBeforeStartDate) {
+        return NO;
+    }
+
+    if ([date isAfterDate:_endDate] && !_canSelectDaysBeforeStartDate) {
         return NO;
     }
     

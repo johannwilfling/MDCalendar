@@ -65,6 +65,16 @@
 
 @property (nonatomic, assign) id<MDCalendarDelegate>delegate; /** A delegate that responds to calendar events. */
 
+
+///--------------------------------
+/// @name CollectionView
+///--------------------------------
+
+/**
+ * The UICollectionView for the calendar
+ */
+@property (nonatomic, strong) UICollectionView *collectionView;
+
 ///--------------------------------
 /// @name Layout
 ///--------------------------------
